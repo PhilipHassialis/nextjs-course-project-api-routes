@@ -1,16 +1,4 @@
-import { MongoClient } from "mongodb";
-
-const connectDatabase = async () => {
-  const client = await MongoClient.connect(
-    "mongodb+srv://NEXTJSUSER:aiD0ppjwUKorq8pB@cluster0.tkycs.mongodb.net/events?retryWrites=true&w=majority"
-  );
-  return client;
-};
-
-const insertDocument = (client, document) => {
-  const db = client.db();
-  await db.collection("newsletter").insertOne(document);
-};
+import { connectDatabase, insertDocument } from "../../helpers/db-util";
 
 const handler = async (req, res) => {
   if (req.method === "POST") {
@@ -30,7 +18,7 @@ const handler = async (req, res) => {
     }
 
     try {
-      await insertDocument(client, { email: userEmail });
+      await insertDocument(client, "newsletter", { email: userEmail });
       client.close();
     } catch (error) {
       res.status(500).json({ message: "Insert data failed" });
