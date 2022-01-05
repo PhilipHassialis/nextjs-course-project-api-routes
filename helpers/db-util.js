@@ -7,13 +7,13 @@ export const connectDatabase = async () => {
   return client;
 };
 
-export const insertDocument = (client, collection, document) => {
+export const insertDocument = async (client, collection, document) => {
   const db = client.db();
   const result = await db.collection(collection).insertOne(document);
   return result;
 };
 
-export const getAllDocuments = (client, collection, sort) => {
+export const getAllDocuments = async (client, collection, sort) => {
   const db = client.db();
   const documents = await db
     .collection(collection)
