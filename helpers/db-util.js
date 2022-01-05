@@ -15,10 +15,6 @@ export const insertDocument = async (client, collection, document) => {
 
 export const getAllDocuments = async (client, collection, sort) => {
   const db = client.db();
-  const documents = await db
-    .collection(collection)
-    .find({ eventId: eventId })
-    .sort(sort)
-    .toArray();
+  const documents = await db.collection(collection).find().sort(sort).toArray();
   return documents;
 };
